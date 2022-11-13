@@ -7,14 +7,19 @@ from nltk.corpus import stopwords
 from time import time
 from progress.bar import IncrementalBar
 
-nltk.download('stopwords')
-
 PATTERN = r"[A-Za-z0-9!#$%&'()*+,./:;<=>?@\[\]^_`{|}~—–\"]+"
 STOPWORDS = stopwords.words('russian')
 
 morph = MorphAnalyzer()
 
 bar = IncrementalBar()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='text preparation for further word2vec model training')
+    parser.add_argument('text_filename', type=str, help='the filename of the source text')
+    parser.add_argument('csv_filename', type=str, help='the filename to save the prepared csv data')
+    return parser.parse_args()
 
 
 def preprocessing(line):
@@ -37,13 +42,12 @@ def preprocessing(line):
 
 if __name__ == "__main__":
     # parse args
-    parser = argparse.ArgumentParser(description='text preparation for further word2vec model training')
-    parser.add_argument('path_to_text', type=str, help='path to text')
-    parser.add_argument('path_to_csv', type=str, help='path to save the prepared csv data')
-    args = parser.parse_args()
+    args = parse_args()
+    # download stopwords
+    nltk.download('stopwords')
     # open text file
     time_started = time()
-    data = pd.read_csv(args.path_to_text, sep='\r\n', names=['data'], engine="python")
+    data = pd.read_csv(args.text_filename, sep='\r\n', names=['data'], engine="python")
     # remove all nones and duplicates
     data = data.dropna().drop_duplicates()
     # preprocess text
@@ -52,5 +56,5 @@ if __name__ == "__main__":
     # remove all nones
     data = data.dropna()
     # save data to csv file
-    data.to_csv(args.path_to_csv, index=False)
-    print('\nТекст был обработан за {} секунд'.format(round(time() - time_started), 2))
+    data.to_csv(args.csv_filename, index=False)
+    print('\nТекст был обработан за {} секунд'.format(int(time() - time_started)))

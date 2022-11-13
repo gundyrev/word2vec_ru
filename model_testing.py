@@ -2,6 +2,14 @@ import argparse
 from gensim.models import KeyedVectors
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='testing word2vec model')
+    parser.add_argument('model', type=str, help='the filename of the model')
+    parser.add_argument('--info', action='store_true', help='print info about the model')
+    parser.add_argument('--similarity', type=str, help='two words to find similarity separated by a comma')
+    return parser.parse_args()
+
+
 def open_model(path: str):
     w2v_model = KeyedVectors.load_word2vec_format(path, binary=True, unicode_errors='ignore')
     return w2v_model
@@ -20,11 +28,7 @@ def similarity(w2v_model: KeyedVectors, word1: str, word2: str):
 
 if __name__ == "__main__":
     # parse args
-    parser = argparse.ArgumentParser(description='information about word2vec model')
-    parser.add_argument('model', type=str, help='path to model')
-    parser.add_argument('--info', action='store_true', help='print info about model')
-    parser.add_argument('--similarity', type=str, help='similarity between two words, separated by comma')
-    args = parser.parse_args()
+    args = parse_args()
     # open model from file
     model = open_model(args.model)
     # if needed print info about model
