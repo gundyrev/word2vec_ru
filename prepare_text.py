@@ -5,6 +5,7 @@ import pandas as pd
 from pymorphy2 import MorphAnalyzer
 from nltk.corpus import stopwords
 from time import time
+from progress.bar import IncrementalBar
 
 nltk.download('stopwords')
 
@@ -12,6 +13,8 @@ PATTERN = r"[A-Za-z0-9!#$%&'()*+,./:;<=>?@\[\]^_`{|}~—–\"]+"
 STOPWORDS = stopwords.words('russian')
 
 morph = MorphAnalyzer()
+
+bar = IncrementalBar()
 
 
 def preprocessing(line):
@@ -26,6 +29,7 @@ def preprocessing(line):
             token = token.strip()
             token = morph.normal_forms(token)[0]
             tokens = tokens + token + ' '
+    bar.next()
     if len(tokens.split(' ')) > 2:
         return tokens[:-1]
     return None
@@ -43,9 +47,10 @@ if __name__ == "__main__":
     # remove all nones and duplicates
     data = data.dropna().drop_duplicates()
     # preprocess text
+    bar = IncrementalBar('Обработка текста', max=len(data['data']))
     data = data['data'].apply(preprocessing)
     # remove all nones
     data = data.dropna()
     # save data to csv file
     data.to_csv(args.path_to_csv, index=False)
-    print('Текст был обработан за {} секунд'.format(round(time() - time_started), 2))
+    print('\nТекст был обработан за {} секунд'.format(round(time() - time_started), 2))

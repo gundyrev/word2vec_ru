@@ -10,11 +10,12 @@ if __name__ == "__main__":
     parser.add_argument('type', type=int, choices=range(1, 3),
                         help='type of tsne visualisation (1 - groups of similar words, 2 - vocabulary)')
     parser.add_argument('-k', '--keys', type=str, help='words for similar words visualization, separated by comma')
+    parser.add_argument('-s', '--save', type=str, help='filename of image to save')
     args = parser.parse_args()
     # open model from file
     model = open_model(args.model)
     # visualise
     if args.type == 1:
-        similar_words.visualise(model, args.keys.split(','))
+        similar_words.visualise(model, args.keys.split(','), args.save)
     if args.type == 2:
-        vocabulary.visualise(model)
+        vocabulary.visualise(model, args.save)

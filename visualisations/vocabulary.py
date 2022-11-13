@@ -5,7 +5,7 @@ import matplotlib.cm as cm
 import numpy as np
 
 
-def tsne_plot_2d(label, embeddings, words=[], a=1):
+def tsne_plot_2d(label, embeddings, image_name, words=[], a=1):
     plt.figure(figsize=(16, 9))
     colors = cm.rainbow(np.linspace(0, 1, 1))
     x = embeddings[:, 0]
@@ -16,10 +16,11 @@ def tsne_plot_2d(label, embeddings, words=[], a=1):
                      textcoords='offset points', ha='right', va='bottom', size=10)
     plt.legend(loc=4)
     plt.grid(True)
+    plt.savefig('{}.png'.format(image_name), format='png', dpi=150, bbox_inches='tight')
     plt.show()
 
 
-def visualise(model: KeyedVectors):
+def visualise(model: KeyedVectors, image_name: str):
     words = []
     embeddings = []
     for word in list(model.index_to_key):
@@ -29,4 +30,4 @@ def visualise(model: KeyedVectors):
     embeddings = np.array(embeddings)
     tsne_ak_2d = TSNE(n_components=2, init='pca', n_iter=3500, random_state=32)
     embeddings_ak_2d = tsne_ak_2d.fit_transform(embeddings)
-    tsne_plot_2d('TSNE visualisation of word2Vec model vocabulary', embeddings_ak_2d, a=0.1)
+    tsne_plot_2d('Word2Vec Model Vocabulary', embeddings_ak_2d, image_name, a=0.1)
