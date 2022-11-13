@@ -7,6 +7,9 @@ def parse_args():
     parser.add_argument('model', type=str, help='the filename of the model')
     parser.add_argument('--info', action='store_true', help='print info about the model')
     parser.add_argument('--similarity', type=str, help='two words to find similarity separated by a comma')
+    parser.add_argument('--most_similar', type=str, help='most similar words to given key')
+    parser.add_argument('--doesnt_match', type=str, help="find the word that doesn't go with the others from the "
+                                                         "given list separated by a comma")
     return parser.parse_args()
 
 
@@ -21,9 +24,19 @@ def model_info(w2v_model: KeyedVectors):
     print('Топ 20 часто используемых слов: {}'.format(', '.join(model_vocab[:20])))
 
 
-def similarity(w2v_model: KeyedVectors, word1: str, word2: str):
-    words_similarity = w2v_model.similarity(word1, word2)
-    print('Схожесть между словами "{}" и "{}" - {}'.format(word1, word2, words_similarity))
+def similarity(w2v_model: KeyedVectors, key1: str, key2: str):
+    words_similarity = w2v_model.similarity(key1, key2)
+    print('Схожесть между словами "{}" и "{}" - {}'.format(key1, key2, words_similarity))
+
+
+def most_similar(w2v_model: KeyedVectors, key: str):
+    most_similar_words = [word[0] for word in w2v_model.most_similar(key)]
+    print('Самые похожие на "{}" слова: {}'.format(key, ', '.join(most_similar_words)))
+
+
+def doesnt_match(w2v_model: KeyedVectors, keys: list):
+    doesnt_match_key = w2v_model.doesnt_match(keys)
+    print('Слово неподходящие к другим из списка [{}] - {}'.format(', '.join(keys), doesnt_match_key))
 
 
 if __name__ == "__main__":
@@ -38,3 +51,7 @@ if __name__ == "__main__":
     if args.similarity:
         words = args.similarity.split(',')
         similarity(model, words[0], words[1])
+    if args.most_similar:
+        most_similar(model, args.most_similar)
+    if args.doesnt_match:
+        doesnt_match(model, args.doesnt_match.split(','))
