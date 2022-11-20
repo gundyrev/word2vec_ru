@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from time import time
 from progress.bar import IncrementalBar
 
-PATTERN = r"^а-яё\s-'"
+PATTERN = r"[^А-ЯЁа-яё\s\-']"
 STOPWORDS = stopwords.words('russian')
 
 morph = MorphAnalyzer()
