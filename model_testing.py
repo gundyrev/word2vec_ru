@@ -36,7 +36,7 @@ def most_similar(w2v_model: KeyedVectors, key: str):
 
 def doesnt_match(w2v_model: KeyedVectors, keys: list):
     doesnt_match_key = w2v_model.doesnt_match(keys)
-    print('Слово неподходящие к другим из списка [{}] - {}'.format(', '.join(keys), doesnt_match_key))
+    print('Слово неподходящее к другим из списка [{}] - {}'.format(', '.join(keys), doesnt_match_key))
 
 
 if __name__ == "__main__":

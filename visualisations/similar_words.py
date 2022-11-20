@@ -18,7 +18,7 @@ def tsne_plot_similar_words(labels, embedding_clusters, word_clusters, model_nam
     plt.legend(loc=4)
     plt.grid(True)
     if image_name:
-        plt.savefig('{}.png'.format(image_name), format='png', dpi=150, bbox_inches='tight')
+        plt.savefig(image_name, format='png', dpi=150, bbox_inches='tight')
     plt.show()
 
 

@@ -14,7 +14,7 @@ def tsne_plot_2d(embeddings, model_name, image_name):
     plt.legend(loc=4)
     plt.grid(True)
     if image_name:
-        plt.savefig('{}.png'.format(image_name), format='png', dpi=150, bbox_inches='tight')
+        plt.savefig(image_name, format='png', dpi=150, bbox_inches='tight')
     plt.show()
 
 
