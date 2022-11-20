@@ -22,7 +22,7 @@ def tsne_plot_similar_words(labels, embedding_clusters, word_clusters, model_nam
     plt.show()
 
 
-def visualise(model: KeyedVectors, keys: list, model_name: str, image_name: str):
+def visualize(model: KeyedVectors, keys: list, model_name: str, image_name: str):
     embedding_clusters = []
     word_clusters = []
     for word in keys:

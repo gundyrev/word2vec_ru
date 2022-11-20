@@ -10,7 +10,7 @@ def tsne_plot_2d(embeddings, model_name, image_name):
     colors = cm.rainbow(np.linspace(0, 1, 1))
     x = embeddings[:, 0]
     y = embeddings[:, 1]
-    plt.scatter(x, y, c=colors, alpha=0.2, label=model_name + ' vocabulary')
+    plt.scatter(x, y, c=colors, alpha=0.1, label=model_name + ' vocabulary')
     plt.legend(loc=4)
     plt.grid(True)
     if image_name:
@@ -18,7 +18,7 @@ def tsne_plot_2d(embeddings, model_name, image_name):
     plt.show()
 
 
-def visualise(model: KeyedVectors, model_name: str, image_name: str):
+def visualize(model: KeyedVectors, model_name: str, image_name: str):
     words = []
     embeddings = []
     for word in list(model.index_to_key):
