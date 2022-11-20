@@ -13,11 +13,6 @@ def parse_args():
     return parser.parse_args()
 
 
-def open_model(path: str):
-    w2v_model = KeyedVectors.load_word2vec_format(path, binary=True, unicode_errors='ignore')
-    return w2v_model
-
-
 def model_info(w2v_model: KeyedVectors):
     model_vocab = w2v_model.index_to_key
     print('Словарный запас модели состоит из {} слов'.format(len(model_vocab)))
@@ -43,7 +38,7 @@ if __name__ == "__main__":
     # parse args
     args = parse_args()
     # open model from file
-    model = open_model(args.model)
+    model = KeyedVectors.load_word2vec_format(args.model, binary=True, unicode_errors='ignore')
     # if needed print info about model
     if args.info:
         model_info(model)

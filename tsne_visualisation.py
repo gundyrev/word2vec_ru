@@ -1,5 +1,5 @@
 import argparse
-from model_testing import open_model
+from gensim.models import KeyedVectors
 import visualisations.similar_words as similar_words
 import visualisations.vocabulary as vocabulary
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     # parse args
     args = parse_args()
     # open model from file
-    model = open_model(args.model)
+    model = KeyedVectors.load_word2vec_format(args.model, binary=True, unicode_errors='ignore')
     # visualise
     if args.type == 1:
         similar_words.visualise(model, args.keys.split(','), args.model, args.save)
