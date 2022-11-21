@@ -25,7 +25,7 @@ def similarity(w2v_model: KeyedVectors, key1: str, key2: str):
 
 
 def most_similar(w2v_model: KeyedVectors, key: str):
-    most_similar_words = [word[0] for word in w2v_model.most_similar(key)]
+    most_similar_words = ['{} ({})'.format(word[0], round(word[1], 3)) for word in w2v_model.most_similar(key)]
     print('Самые похожие на "{}" слова: {}'.format(key, ', '.join(most_similar_words)))
 
 
