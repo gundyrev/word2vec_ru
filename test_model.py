@@ -15,23 +15,23 @@ def parse_args():
 
 def model_info(w2v_model: KeyedVectors):
     model_vocab = w2v_model.index_to_key
-    print('Словарный запас модели состоит из {} слов'.format(len(model_vocab)))
-    print('Топ 20 часто используемых слов: {}'.format(', '.join(model_vocab[:20])))
+    print(f'Словарный запас модели состоит из {len(model_vocab)} слов')
+    print(f'Топ 20 часто используемых слов: {", ".join(model_vocab[:20])}')
 
 
 def similarity(w2v_model: KeyedVectors, key1: str, key2: str):
     words_similarity = w2v_model.similarity(key1, key2)
-    print('Схожесть между словами "{}" и "{}" - {}'.format(key1, key2, words_similarity))
+    print(f'Схожесть между словами "{key1}" и "{key2}" - {words_similarity}')
 
 
 def most_similar(w2v_model: KeyedVectors, key: str):
-    most_similar_words = ['{} ({})'.format(word[0], round(word[1], 3)) for word in w2v_model.most_similar(key)]
-    print('Самые похожие на "{}" слова: {}'.format(key, ', '.join(most_similar_words)))
+    most_similar_words = [f'{word[0]} ({round(word[1], 3)})' for word in w2v_model.most_similar(key)]
+    print(f'Самые похожие на "{key}" слова: {", ".join(most_similar_words)}')
 
 
 def doesnt_match(w2v_model: KeyedVectors, keys: list):
     doesnt_match_key = w2v_model.doesnt_match(keys)
-    print('Слово, неподходящее к другим из списка [{}] - {}'.format(', '.join(keys), doesnt_match_key))
+    print(f'Слово, неподходящее к другим из списка [{", ".join(keys)}] - {doesnt_match_key}')
 
 
 if __name__ == "__main__":

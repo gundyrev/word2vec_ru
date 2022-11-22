@@ -57,4 +57,4 @@ if __name__ == "__main__":
     data = data.dropna()
     # save data to csv file
     data.to_csv(args.csv_filename, index=False)
-    print('\nТекст был обработан за {} секунд'.format(int(time() - time_started)))
+    print(f'\nТекст был обработан за {int(time() - time_started)} секунд')

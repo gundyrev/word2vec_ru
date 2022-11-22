@@ -54,4 +54,4 @@ if __name__ == "__main__":
                     callbacks=[Callback()])
     # save the model in binary format
     w2v_model.wv.save_word2vec_format(args.model_filename, binary=True)
-    print('\nМодель была обучена за {} секунд'.format(int(time() - time_started)))
+    print(f'\nМодель была обучена за {int(time() - time_started)} секунд')
