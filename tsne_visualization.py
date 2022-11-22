@@ -21,6 +21,6 @@ if __name__ == "__main__":
     model = KeyedVectors.load_word2vec_format(args.model, binary=True, unicode_errors='ignore')
     # visualize
     if args.type == 1:
-        similar_words.visualize(model, args.keys.split(','), args.model, args.save)
+        similar_words.visualize(model, args.keys.split(','), args.save)
     if args.type == 2:
         vocabulary.visualize(model, args.model, args.save)

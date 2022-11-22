@@ -5,7 +5,7 @@ import matplotlib.cm as cm
 import numpy as np
 
 
-def tsne_plot_similar_words(labels, embedding_clusters, word_clusters, model_name, image_name, a=0.7):
+def tsne_plot_similar_words(labels, embedding_clusters, word_clusters, image_name, a=0.7):
     plt.figure(figsize=(16, 9))
     colors = cm.rainbow(np.linspace(0, 1, len(labels)))
     for label, embeddings, words, color in zip(labels, embedding_clusters, word_clusters, colors):
@@ -22,7 +22,7 @@ def tsne_plot_similar_words(labels, embedding_clusters, word_clusters, model_nam
     plt.show()
 
 
-def visualize(model: KeyedVectors, keys: list, model_name: str, image_name: str):
+def visualize(model: KeyedVectors, keys: list, image_name: str):
     embedding_clusters = []
     word_clusters = []
     for word in keys:
@@ -37,4 +37,4 @@ def visualize(model: KeyedVectors, keys: list, model_name: str, image_name: str)
     embedding_clusters = np.array(embedding_clusters)
     n, m, k = embedding_clusters.shape
     embeddings_en_2d = np.array(tsne_model_en_2d.fit_transform(embedding_clusters.reshape(n * m, k))).reshape(n, m, 2)
-    tsne_plot_similar_words(keys, embeddings_en_2d, word_clusters, model_name, image_name)
+    tsne_plot_similar_words(keys, embeddings_en_2d, word_clusters, image_name)
